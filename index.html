@@ -11,11 +11,13 @@
 
         #videoContainer {
             position: fixed;
-            bottom: 20px;
+            bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 90%;
-            max-width: 400px;
+            width: 100vw; /* Full screen width */
+            max-width: 100%; /* Ensure it does not exceed screen size */
+            height: auto;
+            max-height: 50vh; /* Max 50% of screen height to prevent overlap */
             background: black;
             border-radius: 10px;
             display: none;
@@ -23,6 +25,7 @@
 
         video {
             width: 100%;
+            height: auto;
             border-radius: 10px;
         }
     </style>
@@ -42,7 +45,7 @@
 
     <!-- Video -->
     <div id="videoContainer">
-        <video id="videoPlayer" muted playsinline controls>
+        <video id="videoPlayer" playsinline controls>
             <source src="movie1.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
@@ -55,7 +58,7 @@
         function playMedia() {
             let videoContainer = document.getElementById("videoContainer");
             let videoPlayer = document.getElementById("videoPlayer");
-            //let audioPlayer = document.getElementById("arSound");
+            let audioPlayer = document.getElementById("arSound");
 
             // Show video container
             videoContainer.style.display = "block";
@@ -63,8 +66,8 @@
             // Play video
             videoPlayer.play().catch(() => console.log("Video autoplay blocked!"));
 
-            // Play audio
-            audioPlayer.muted = false; // Ensure it's unmuted
+            // Play audio (ensure it's unmuted for iOS)
+            audioPlayer.muted = false;
             audioPlayer.play().catch(() => console.log("Audio autoplay blocked!"));
 
             // Remove event listeners after first tap
