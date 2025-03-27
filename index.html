@@ -3,24 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AR 3D Model with Local Video</title>
+    <title>AR 3D Model with Video</title>
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/jeromeetienne/AR.js/aframe/build/aframe-ar.min.js"></script>
+    <style>
+        #videoContainer {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 320px;
+            height: 240px;
+            background: black;
+            display: none;
+        }
+        #videoPlayer {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 </head>
 <body style="margin: 0; overflow: hidden;">
     <a-scene embedded arjs>
         <a-assets>
             <a-asset-item id="buildingModel" src="smart watch.glb"></a-asset-item>
-            <video id="localVideo" src="Guico heat index sige na.mp4" autoplay loop muted playsinline></video>
         </a-assets>
 
         <a-entity position="0 0 0">
             <a-gltf-model src="#buildingModel" scale="1 1 1"></a-gltf-model>
         </a-entity>
 
-        <a-video src="#localVideo" position="0 1.5 -3" width="2" height="1.125" autoplay loop></a-video>
-
         <a-camera position="0 1.6 0" look-controls></a-camera>
     </a-scene>
+
+    <!-- Video Player Overlay -->
+    <div id="videoContainer">
+        <video id="videoPlayer" autoplay controls>
+            <source src="movie.mp4" type="video/mp4">
+            <source src="movie.ogg" type="video/ogg">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <script>
+        window.onload = function() {
+            let videoContainer = document.getElementById("videoContainer");
+            let videoPlayer = document.getElementById("videoPlayer");
+
+            // Show video player when the page loads (after scanning the QR code)
+            videoContainer.style.display = "block";
+
+            // Auto-play the video (mobile browsers may require user interaction)
+            videoPlayer.play().catch(() => {
+                console.log("Autoplay blocked. User needs to tap to play.");
+            });
+        };
+    </script>
 </body>
 </html>
