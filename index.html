@@ -11,8 +11,7 @@
             margin: 0; 
             overflow: hidden; 
             touch-action: manipulation;
-            background: black; /* Ensure black background */
-        }
+            background: black;
 
         #videoContainer {
             position: fixed;
@@ -42,7 +41,7 @@
             <a-asset-item id="buildingModel" src="smart-watch.glb"></a-asset-item>
         </a-assets>
 
-        <!-- 3D Model -->
+        <!-- 3D  ni carey  -->
         <a-entity position="0 0 0">
             <a-gltf-model src="#buildingModel" scale="1 1 1"></a-gltf-model>
         </a-entity>
@@ -76,8 +75,7 @@
 
             // Play audio (fix for iOS requiring interaction)
             audioPlayer.muted = false;
-            audioPlayer.play().catch(() => console.log("Audio autoplay blocked!"));
-
+            
             // Remove event listeners after first tap
             document.removeEventListener("click", playMedia);
             document.removeEventListener("touchstart", playMedia);
